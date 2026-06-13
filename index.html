@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NextGen Access — Guided Today, Leading Tomorrow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #090C10;
+      --surface:  #111620;
+      --border:   #1E2738;
+      --gold:     #C9A84C;
+      --gold-dim: #7A6230;
+      --white:    #F0EDE6;
+      --muted:    #7A8399;
+      --green:    #2ECC8A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6vw;
+      background: rgba(9,12,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gold); color: var(--bg);
+      padding: 0.5rem 1.4rem; border-radius: 4px;
+      font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s;
+      font-family: 'Syne', sans-serif;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 10rem 6vw 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 32px; height: 1px; background: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      font-weight: 800; line-height: 1.06;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold) 0%, #E8C97A 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      color: var(--muted); font-size: 1.1rem; max-width: 48ch;
+      margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--bg);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.3);
+    }
+    .btn-ghost {
+      border: 1px solid var(--border); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-family: 'Syne', sans-serif; font-weight: 600;
+      font-size: 0.95rem; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stat-row {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      color: var(--gold); line-height: 1;
+    }
+    .hero-stat span {
+      font-size: 0.8rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 6vw; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.01em;
+      max-width: 20ch;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted); max-width: 52ch; line-height: 1.7;
+    }
+
+    /* ── PROBLEM ── */
+    .problem {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .problem-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .problem-quote {
+      border-left: 3px solid var(--gold);
+      padding-left: 2rem;
+    }
+    .problem-quote blockquote {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 700; line-height: 1.3;
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .problem-quote cite {
+      font-size: 0.8rem; color: var(--muted);
+      font-style: normal; letter-spacing: 0.05em;
+    }
+    .problem-text p { color: var(--muted); margin-bottom: 1rem; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+      margin-top: 3.5rem;
+      background: var(--border);
+    }
+    .service-card {
+      background: var(--bg);
+      padding: 2.2rem 2rem;
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-card::before {
+      content: attr(data-num);
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem; font-weight: 800;
+      color: var(--border); line-height: 1;
+      transition: color 0.25s;
+    }
+    .service-card:hover::before { color: var(--gold-dim); }
+    .service-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.6rem; color: var(--white);
+    }
+    .service-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── IMPACT ── */
+    .impact { background: var(--surface); border-top: 1px solid var(--border); }
+    .impact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .outcomes { list-style: none; margin-top: 2rem; }
+    .outcomes li {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .outcomes li::before {
+      content: '→'; color: var(--green);
+      font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    /* ── PHOTO GRID ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 0.75rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .photo-grid img {
+      width: 100%; height: 200px;
+      object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .photo-grid img:first-child {
+      grid-column: 1 / -1;
+      height: 260px;
+    }
+    .photo-grid img:hover { transform: scale(1.03); }
+    .photo-caption {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      padding-top: 0.25rem;
+    }
+
+    /* ── APPROACH ── */
+    .approach-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .step {
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.25s;
+    }
+    .step:hover { border-color: var(--gold-dim); }
+    .step-num {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.8rem; color: var(--gold);
+      margin-bottom: 0.8rem; line-height: 1;
+    }
+    .step h3 {
+      font-family: 'Syne', sans-serif; font-size: 0.95rem;
+      font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .step p { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg) 0%, #0D1220 100%);
+      border-top: 1px solid var(--border);
+      padding: 7rem 6vw;
+      position: relative;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section .section-title { max-width: 100%; text-align: center; }
+    .cta-section .section-sub { text-align: center; margin: 0 auto 2.5rem; }
+    .cta-contact {
+      display: flex; gap: 2rem; justify-content: center;
+      flex-wrap: wrap; margin-top: 3rem;
+    }
+    .contact-pill {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.875rem; color: var(--muted);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .contact-pill:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 6vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer .logo { font-size: 1rem; }
+    footer p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .problem-inner, .impact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .hero-stat-row { gap: 2rem; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">NEXT<span>GEN</span> ACCESS</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#approach">How It Works</a></li>
+    <li><a href="#access">How to Access</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Partner With Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Africa-Focused Youth Development</div>
+  <h1>Guided Today.<br/><em>Leading Tomorrow.</em></h1>
+  <p class="hero-sub">
+    NextGen Access walks alongside African students — helping them discover their strengths, access scholarships, and step into global opportunities with confidence.
+  </p>
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">Explore Our Programs</a>
+    <a href="#contact" class="btn-ghost">Partner With Us</a>
+  </div>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <strong>87%</strong>
+      <span>Students unprepared for career decisions</span>
+    </div>
+    <div class="hero-stat">
+      <strong>360°</strong>
+      <span>Holistic student support model</span>
+    </div>
+    <div class="hero-stat">
+      <strong>∞</strong>
+      <span>Opportunities unlocked across Africa & beyond</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div class="problem-quote reveal">
+      <blockquote>"Only 13% of young Africans feel prepared to decide their future."</blockquote>
+      <cite>— The gap NextGen Access is closing</cite>
+    </div>
+    <div class="problem-text reveal">
+      <div class="section-label">The Problem</div>
+      <p>Millions of African students complete secondary school without a clear career direction — unaware of the academic pathways, scholarships, or global opportunities available to them.</p>
+      <p>That gap costs them years of potential. NextGen Access embeds structured career guidance directly into the school experience, so no student steps into the world without a plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label reveal">What We Offer</div>
+  <h2 class="section-title reveal">Programs Built Around Every Student</h2>
+  <p class="section-sub reveal">From SAT prep to psychological support, every service is designed to give students the tools and confidence they need to thrive.</p>
+
+  <div class="services-grid">
+    <div class="service-card reveal" data-num="01">
+      <div class="service-icon">🎓</div>
+      <h3>Scholarship Coaching</h3>
+      <p>Identifying regional and global scholarship opportunities and coaching students on essays, documentation, and matching them to the right funding.</p>
+    </div>
+    <div class="service-card reveal" data-num="02">
+      <div class="service-icon">🌍</div>
+      <h3>University Application Support</h3>
+      <p>Step-by-step guidance through personal statements, document preparation, timelines, and requirements for local and international universities.</p>
+    </div>
+    <div class="service-card reveal" data-num="03">
+      <div class="service-icon">🧭</div>
+      <h3>Career Guidance & Counseling</h3>
+      <p>One-on-one sessions, psychometric assessments, subject selection guidance, and career awareness workshops tailored to each student's strengths.</p>
+    </div>
+    <div class="service-card reveal" data-num="04">
+      <div class="service-icon">📐</div>
+      <h3>SAT & College Readiness</h3>
+      <p>Structured SAT instruction covering Reading, Writing, and Math — with regular tests, practice sessions, and full SAT Centre management.</p>
+    </div>
+    <div class="service-card reveal" data-num="05">
+      <div class="service-icon">💡</div>
+      <h3>Entrepreneurship & Skills</h3>
+      <p>Hands-on entrepreneurship training, student innovation projects, and workshops in public speaking, teamwork, and problem-solving.</p>
+    </div>
+    <div class="service-card reveal" data-num="06">
+      <div class="service-icon">🧠</div>
+      <h3>Psychological Support</h3>
+      <p>Individual counseling sessions addressing personal, emotional, and academic challenges — with early identification of students who need extra care.</p>
+    </div>
+    <div class="service-card reveal" data-num="07">
+      <div class="service-icon">🏆</div>
+      <h3>Leadership & Community Service</h3>
+      <p>Designing service projects, tracking service hours for university applications, and leadership development workshops for future changemakers.</p>
+    </div>
+    <div class="service-card reveal" data-num="08">
+      <div class="service-icon">🎪</div>
+      <h3>Career Fairs & Events</h3>
+      <p>Hosting school and regional career fairs with universities, industry experts, panel discussions, and seminars that open real-world doors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="impact">
+  <div class="impact-inner">
+    <div>
+      <div class="section-label reveal">Expected Impact</div>
+      <h2 class="section-title reveal">What Success Looks Like for Students</h2>
+      <ul class="outcomes">
+        <li>Students who understand their career pathways and can articulate their goals clearly</li>
+        <li>Higher rates of successful local and international university admissions</li>
+        <li>More scholarship applications — and more wins</li>
+        <li>Stronger confidence, leadership skills, and professional readiness</li>
+        <li>Better wellbeing through psychological and emotional support</li>
+        <li>Exposure to global networks, industries, and opportunities</li>
+      </ul>
+    </div>
+    <div class="photo-grid reveal">
+      <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&q=80&fit=crop" alt="Students engaged in a learning session" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80&fit=crop" alt="Young student studying with focus" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80&fit=crop" alt="Students collaborating in class" loading="lazy"/>
+      <p class="photo-caption">NextGen Access students — discovering their potential every day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal">From Classroom to Career — A Clear Path</h2>
+  <p class="section-sub reveal">Our structured model integrates seamlessly into the school environment, delivering measurable outcomes at every stage.</p>
+
+  <div class="approach-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Assess & Discover</h3>
+      <p>Psychometric assessments and one-on-one counseling sessions uncover each student's strengths, interests, and goals.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <h3>Plan & Prepare</h3>
+      <p>Personalized roadmaps guide students through subject selection, skill-building, and university timeline planning.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <h3>Apply & Access</h3>
+      <p>Expert support through every university and scholarship application — essays, documents, interviews, and submissions.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <h3>Grow & Lead</h3>
+      <p>Entrepreneurship training, community service, and leadership workshops build the whole person, not just the applicant.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">05</div>
+      <h3>Measure & Improve</h3>
+      <p>Quarterly reports, termly assessments, and feedback surveys keep outcomes visible and the program improving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO ACCESS -->
+<section id="access" style="background:var(--bg); border-top:1px solid var(--border);">
+  <div class="section-label reveal">Getting Started</div>
+  <h2 class="section-title reveal">How to Access NextGen Access</h2>
+  <p class="section-sub reveal">Bringing our programs to your school is straightforward. Here's everything you need to reach us and get the process going.</p>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem; align-items:start;">
+
+    <!-- Steps -->
+    <div>
+      <div class="approach-steps" style="grid-template-columns:1fr; gap:1.2rem; margin-top:0;">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Reach Out</h3>
+          <p>Contact us by phone, email, or WhatsApp. Tell us about your school and how many students you serve.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>Schedule a Meeting</h3>
+          <p>We'll arrange a visit or virtual call to walk you through our programs, answer questions, and understand your school's needs.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>We Set Up & Launch</h3>
+          <p>Our team handles setup, staff deployment, and onboarding — your school starts seeing results from day one.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact card -->
+    <div class="step reveal" style="padding:2.5rem; border-color:var(--gold-dim);">
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.1rem; color:var(--gold); margin-bottom:1.5rem;">Our Contact Details</h3>
+
+      <div style="display:flex; flex-direction:column; gap:1.2rem;">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.3rem;">📞</span>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.2rem;">Phone / WhatsApp</div>
+            <a href="tel:+250791991676" style="color:var(--white); text-decoration:none; font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;">+250 791 991 676</a>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.3rem;">✉️</span>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.2rem;">Email</div>
+            <a href="mailto:director.nextgenaccess@outlook.com" style="color:var(--white); text-decoration:none; font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem;">director.nextgenaccess@outlook.com</a>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.3rem;">📍</span>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.2rem;">Location</div>
+            <span style="color:var(--white); font-family:'Syne',sans-serif; font-weight:700;">Remera, Kigali, Rwanda</span>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border); padding-top:1.2rem; margin-top:0.3rem;">
+          <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem;">Response Time</div>
+          <span style="color:var(--green); font-family:'Syne',sans-serif; font-weight:700;">Within 24 hours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student transformation photos -->
+  <div style="margin-top:4rem;">
+    <div class="section-label reveal" style="margin-bottom:1rem;">The Difference We Make</div>
+    <h3 class="reveal" style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; margin-bottom:2rem; max-width:30ch;">Students Who Walk In Uncertain, Walk Out Ready.</h3>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem;">
+      <div class="reveal" style="position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80&fit=crop" alt="Student receiving career guidance" style="width:100%; height:220px; object-fit:cover; display:block;"/>
+        <div style="padding:1rem 1.2rem; background:var(--surface);">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:var(--white); margin-bottom:0.3rem;">Career Guidance</div>
+          <div style="font-size:0.8rem; color:var(--muted);">One-on-one sessions that reveal each student's true path.</div>
+        </div>
+      </div>
+      <div class="reveal" style="position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&q=80&fit=crop" alt="Students collaborating on projects" style="width:100%; height:220px; object-fit:cover; display:block;"/>
+        <div style="padding:1rem 1.2rem; background:var(--surface);">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:var(--white); margin-bottom:0.3rem;">Team & Leadership</div>
+          <div style="font-size:0.8rem; color:var(--muted);">Building collaborators, communicators, and future leaders.</div>
+        </div>
+      </div>
+      <div class="reveal" style="position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=80&fit=crop" alt="Student celebrating acceptance" style="width:100%; height:220px; object-fit:cover; display:block;"/>
+        <div style="padding:1rem 1.2rem; background:var(--surface);">
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:var(--white); margin-bottom:0.3rem;">University Success</div>
+          <div style="font-size:0.8rem; color:var(--muted);">Students landing scholarships and global opportunities.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="section-label reveal">Get In Touch</div>
+  <h2 class="section-title reveal">Ready to Transform Your Students' Futures?</h2>
+  <p class="section-sub reveal">Partner with NextGen Access to bring structured career guidance, scholarship support, and holistic development to your school.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a href="mailto:director.nextgenaccess@outlook.com" class="btn-primary reveal">Send a Partnership Inquiry</a>
+  </div>
+  <div class="cta-contact reveal">
+    <a href="tel:+250791991676" class="contact-pill">📞 +250 791 991 676</a>
+    <a href="mailto:director.nextgenaccess@outlook.com" class="contact-pill">✉️ director.nextgenaccess@outlook.com</a>
+    <span class="contact-pill">📍 Remera, Kigali, Rwanda</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">NEXT<span>GEN</span> ACCESS</div>
+  <p>Guiding young African minds toward meaningful academic and career futures.</p>
+  <p style="color:var(--muted);font-size:0.78rem;">© 2025 NextGen Access. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
